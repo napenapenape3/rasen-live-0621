@@ -90,6 +90,10 @@
   .tk .lbl{letter-spacing:.25em;font-size:.8rem;color:var(--muted);font-weight:700;}
   .tk .amt{font-size:clamp(2rem,8vw,3rem);font-weight:900;color:var(--red);margin-top:.5rem;line-height:1;}
   .tk .amt sup{font-size:.45em;font-weight:700;color:var(--ink);vertical-align:super;margin-left:.2rem;}
+    .tk .tier{display:block;letter-spacing:.18em;font-size:.62rem;font-weight:700;color:var(--muted);margin-top:1.1rem;margin-bottom:.2rem;}
+    .tk .tier:first-of-type{margin-top:.5rem;}
+    .tk .door{font-size:clamp(1.4rem,5.5vw,2rem);font-weight:900;color:var(--ink);line-height:1;}
+    .tk .door sup{font-size:.45em;font-weight:700;color:var(--muted);vertical-align:super;margin-left:.2rem;}
   .note{margin-top:1.2rem;font-size:.8rem;color:var(--muted);letter-spacing:.05em;text-align:center;}
 
   /* FOOTER */
@@ -188,14 +192,14 @@
   <div class="tickets">
     <div class="tk">
       <div class="lbl">TICKET</div>
-      <div class="amt">&yen;3,500<sup>+1D</sup></div>
+      <span class="tier">ADVANCE / 前売</span><div class="amt">&yen;3,500<sup>+1D</sup></div><span class="tier">DOOR / 当日</span><div class="door">&yen;4,000<sup>+1D</sup></div>
     </div>
     <div class="tk">
       <div class="lbl">STUDENT TICKET</div>
-      <div class="amt">&yen;2,000<sup>+1D</sup></div>
+      <span class="tier">ADVANCE / 前売</span><div class="amt">&yen;2,000<sup>+1D</sup></div><span class="tier">DOOR / 当日</span><div class="door">&yen;2,500<sup>+1D</sup></div>
     </div>
   </div>
-  <p class="note">※ +1D : ドリンク代別途必要 / 価格は税込</p>
+  <p class="note">※ 当日券は当日窓口にて販売 / +1D : ドリンク代別途必要 / 価格は税込</p>
 </section>
 
 <footer>
