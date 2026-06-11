@@ -1,86 +1,305 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RASEN | 2026.06.21 渋谷LUSH</title>
-  <meta name="description" content="RASEN - 2026年6月21日(日) 渋谷LUSH。出演：Nape / 徒然書簡。チケット好評発売中。">
-  <style>
-    :root{--bg:#0a0a12;--accent:#e63973;--accent2:#6a3de8;--text:#f4f4f8;--muted:#b8b8c8;}
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
-    a{color:inherit;text-decoration:none;}
-    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1.5rem;position:relative;background:radial-gradient(circle at 20% 20%, rgba(230,57,115,.35), transparent 45%),radial-gradient(circle at 80% 70%, rgba(106,61,232,.4), transparent 45%),var(--bg);overflow:hidden;}
-    .hero::before{content:"";position:absolute;inset:-50%;background:conic-gradient(from 0deg, transparent, rgba(230,57,115,.08), transparent 30%);animation:spin 18s linear infinite;}
-    @keyframes spin{to{transform:rotate(360deg);}}
-    .hero-content{position:relative;z-index:1;}
-    .title{font-size:clamp(4rem,18vw,11rem);font-weight:900;letter-spacing:.12em;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;}
-    .subtitle{margin-top:1.2rem;font-size:clamp(1rem,3.5vw,1.4rem);letter-spacing:.3em;color:var(--muted);}
-    .date-badge{margin-top:2.5rem;display:inline-block;padding:.6rem 1.6rem;border:1px solid rgba(255,255,255,.25);border-radius:999px;font-size:clamp(1.1rem,4vw,1.6rem);letter-spacing:.15em;backdrop-filter:blur(6px);}
-    .cta{margin-top:2.5rem;display:inline-block;padding:1rem 3rem;font-size:1.1rem;font-weight:700;letter-spacing:.1em;border-radius:999px;background:linear-gradient(120deg,var(--accent),var(--accent2));box-shadow:0 8px 30px rgba(230,57,115,.45);transition:transform .2s ease,box-shadow .2s ease;}
-    .cta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(230,57,115,.6);}
-    .section{max-width:760px;margin:0 auto;padding:5rem 1.5rem;}
-    .section h2{font-size:1.8rem;letter-spacing:.1em;margin-bottom:2rem;position:relative;padding-left:1rem;}
-    .section h2::before{content:"";position:absolute;left:0;top:.1em;bottom:.1em;width:5px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px;}
-    .info-grid{display:grid;grid-template-columns:120px 1fr;gap:1rem 1.5rem;}
-    .info-grid dt{color:var(--accent);font-weight:700;letter-spacing:.08em;}
-    .info-grid dd{color:var(--text);}
-    .lineup{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.5rem;}
-    .lineup span{padding:.7rem 1.6rem;border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:1.2rem;font-weight:700;letter-spacing:.06em;background:rgba(255,255,255,.03);}
-    .price-card{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem;}
-    .price{flex:1;min-width:200px;padding:1.5rem;border-radius:16px;background:linear-gradient(160deg,rgba(230,57,115,.12),rgba(106,61,232,.12));border:1px solid rgba(255,255,255,.1);text-align:center;}
-    .price .label{color:var(--muted);letter-spacing:.1em;}
-    .price .amount{font-size:2rem;font-weight:900;margin-top:.4rem;}
-    .price .amount small{font-size:.9rem;font-weight:400;color:var(--muted);}
-    footer{text-align:center;padding:3rem 1.5rem;color:var(--muted);font-size:.85rem;border-top:1px solid rgba(255,255,255,.08);}
-    .footer-cta{display:inline-block;margin-bottom:1.5rem;padding:.9rem 2.6rem;border-radius:999px;font-weight:700;letter-spacing:.1em;background:linear-gradient(120deg,var(--accent),var(--accent2));color:#fff;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RASEN | Nape presents TWO MAN LIVE | 2026.06.21 Shibuya LUSH</title>
+<meta name="description" content="Nape presents TWO MAN LIVE「RASEN」2026年6月21日(日) Shibuya LUSH。ACT: Nape and 徒然書簡。">
+<style>
+  :root{
+    --paper:#e9e7e4;
+    --paper2:#dcd9d5;
+    --ink:#111114;
+    --red:#c8102e;
+    --red-deep:#9c0b22;
+    --muted:#55555a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Arial','Helvetica Neue','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6vh 5vw;
+    background:
+      radial-gradient(ellipse at 50% 0%, #f2f0ed 0%, var(--paper) 55%, var(--paper2) 100%);
+    overflow:hidden;
+  }
+  /* DNA / 螺旋 particle column */
+  .helix{
+    position:absolute;
+    top:-8%;left:50%;transform:translateX(-50%);
+    width:340px;height:116%;
+    opacity:.9;
+    pointer-events:none;
+    z-index:1;
+  }
+  .helix svg{width:100%;height:100%;}
+  .dot{animation:drift 7s ease-in-out infinite;}
+  @keyframes drift{
+    0%,100%{transform:translateX(0);opacity:1;}
+    50%{transform:translateX(6px);opacity:.55;}
+  }
+  .hero-inner{
+    position:relative;
+    z-index:3;
+    width:100%;
+    max-width:920px;
+    text-align:center;
+  }
+  .kicker{
+    font-size:clamp(.95rem,2.6vw,1.5rem);
+    font-weight:700;
+    letter-spacing:.04em;
+    margin-bottom:.4rem;
+  }
+  .kicker .pres{color:var(--ink);font-weight:600;}
+  .kicker .two{color:var(--red);font-weight:800;letter-spacing:.06em;}
+  .rasen-title{
+    font-size:clamp(5.5rem,26vw,18rem);
+    font-weight:900;
+    color:var(--red);
+    letter-spacing:.04em;
+    line-height:.82;
+    text-shadow:0 2px 0 rgba(156,11,34,.25);
+  }
+  .meta-row{
+    margin-top:2.2rem;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:.4rem 1.4rem;
+    font-weight:700;
+    letter-spacing:.02em;
+    font-size:clamp(.95rem,2.4vw,1.25rem);
+  }
+  .meta-row .red{color:var(--red);}
+  .cta{
+    margin-top:2.4rem;
+    display:inline-block;
+    padding:1rem 3.2rem;
+    font-weight:800;
+    letter-spacing:.18em;
+    font-size:1rem;
+    color:var(--paper);
+    background:var(--red);
+    border:1px solid var(--red-deep);
+    transition:background .25s ease,transform .2s ease;
+  }
+  .cta:hover{background:var(--ink);transform:translateY(-2px);}
+  .scroll-hint{
+    position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
+    z-index:3;font-size:.7rem;letter-spacing:.4em;color:var(--muted);
+    writing-mode:vertical-rl;
+  }
+
+  /* ===== SECTIONS ===== */
+  .band{
+    background:var(--ink);
+    color:var(--paper);
+    padding:.6rem 0;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+  .marquee{
+    display:inline-block;
+    animation:scroll-x 22s linear infinite;
+    font-weight:800;letter-spacing:.3em;font-size:.95rem;
+  }
+  .marquee span{margin:0 1.4rem;}
+  .marquee .r{color:var(--red);}
+  @keyframes scroll-x{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  .section{max-width:880px;margin:0 auto;padding:6rem 1.6rem;}
+  .sec-head{
+    font-size:clamp(1.5rem,5vw,2.4rem);
+    font-weight:900;
+    letter-spacing:.12em;
+    margin-bottom:2.4rem;
+    display:flex;align-items:center;gap:1rem;
+  }
+  .sec-head::before{content:"";width:42px;height:3px;background:var(--red);}
+  .sec-head .num{color:var(--red);font-size:.9rem;letter-spacing:.2em;}
+
+  .acts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .act{
+    border:1px solid rgba(17,17,20,.18);
+    background:rgba(255,255,255,.35);
+    padding:2.4rem 1.4rem;
+    text-align:center;
+  }
+  .act .name{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:900;letter-spacing:.04em;}
+  .act .role{margin-top:.5rem;color:var(--muted);font-size:.8rem;letter-spacing:.3em;}
+
+  .info-table{width:100%;border-collapse:collapse;font-size:clamp(.95rem,2.4vw,1.1rem);}
+  .info-table th{
+    text-align:left;width:140px;padding:1rem .5rem;color:var(--red);
+    font-weight:800;letter-spacing:.1em;border-bottom:1px solid rgba(17,17,20,.15);
+    vertical-align:top;
+  }
+  .info-table td{padding:1rem .5rem;border-bottom:1px solid rgba(17,17,20,.15);font-weight:600;}
+
+  .tickets{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .tk{
+    border:1px solid var(--ink);
+    padding:2rem 1.4rem;text-align:center;
+    background:rgba(255,255,255,.3);
+  }
+  .tk .lbl{letter-spacing:.25em;font-size:.8rem;color:var(--muted);font-weight:700;}
+  .tk .amt{font-size:clamp(2rem,8vw,3rem);font-weight:900;color:var(--red);margin-top:.5rem;line-height:1;}
+  .tk .amt sup{font-size:.45em;font-weight:700;color:var(--ink);vertical-align:super;margin-left:.2rem;}
+  .note{margin-top:1.2rem;font-size:.8rem;color:var(--muted);letter-spacing:.05em;text-align:center;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--ink);color:var(--paper);
+    text-align:center;padding:4.5rem 1.6rem 3rem;
+    position:relative;overflow:hidden;
+  }
+  .foot-rasen{
+    font-size:clamp(3rem,14vw,8rem);font-weight:900;color:var(--red);
+    letter-spacing:.06em;line-height:1;opacity:.92;
+  }
+  .foot-cta{
+    display:inline-block;margin-top:2rem;padding:1rem 3rem;
+    border:1px solid var(--red);color:var(--paper);background:var(--red);
+    font-weight:800;letter-spacing:.18em;transition:background .25s ease;
+  }
+  .foot-cta:hover{background:transparent;}
+  .foot-meta{margin-top:2.4rem;font-size:.75rem;letter-spacing:.2em;color:#9a9aa0;line-height:2;}
+
+  @media(max-width:600px){
+    .acts,.tickets{grid-template-columns:1fr;}
+    .helix{width:220px;opacity:.7;}
+    .info-table th{width:96px;font-size:.8rem;}
+  }
+</style>
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-content">
-      <h1 class="title">RASEN</h1>
-      <p class="subtitle">LIVE at 渋谷LUSH</p>
-      <div class="date-badge">2026.06.21 SUN</div>
-      <br>
-      <a class="cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">チケットを購入する</a>
+<div class="grain"></div>
+
+<header class="hero">
+  <div class="helix" id="helix"></div>
+  <div class="hero-inner">
+    <p class="kicker"><span class="pres">Nape presents</span> &nbsp;<span class="two">TWO MAN LIVE</span></p>
+    <h1 class="rasen-title">RASEN</h1>
+    <div class="meta-row">
+      <span class="red">2026 06 21 (Sun)</span>
+      <span>Shibuya LUSH</span>
+      <span>OPEN <span class="red">18:15</span></span>
+      <span>START <span class="red">18:45</span></span>
     </div>
-  </header>
-  <section class="section">
-    <h2>LINE UP</h2>
-    <div class="lineup">
-      <span>Nape</span>
-      <span>徒然書簡</span>
+    <a class="cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">TICKET</a>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</header>
+
+<div class="band">
+  <div class="marquee">
+    <span>RASEN <span class="r">/</span> TWO MAN LIVE <span class="r">/</span> Nape and 徒然書簡 <span class="r">/</span> 2026.06.21 <span class="r">/</span> Shibuya LUSH <span class="r">/</span></span>
+    <span>RASEN <span class="r">/</span> TWO MAN LIVE <span class="r">/</span> Nape and 徒然書簡 <span class="r">/</span> 2026.06.21 <span class="r">/</span> Shibuya LUSH <span class="r">/</span></span>
+  </div>
+</div>
+
+<section class="section">
+  <h2 class="sec-head"><span class="num">01</span> ACT</h2>
+  <div class="acts">
+    <div class="act"><div class="name">Nape</div><div class="role">PERFORMER</div></div>
+    <div class="act"><div class="name">徒然書簡</div><div class="role">PERFORMER</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="sec-head"><span class="num">02</span> INFORMATION</h2>
+  <table class="info-table">
+    <tr><th>TITLE</th><td>Nape presents TWO MAN LIVE「RASEN」</td></tr>
+    <tr><th>DATE</th><td>2026.06.21 (Sun)</td></tr>
+    <tr><th>VENUE</th><td>Shibuya LUSH (東京都)</td></tr>
+    <tr><th>OPEN</th><td>18:15</td></tr>
+    <tr><th>START</th><td>18:45</td></tr>
+    <tr><th>ACT</th><td>Nape and 徒然書簡</td></tr>
+  </table>
+</section>
+
+<section class="section">
+  <h2 class="sec-head"><span class="num">03</span> TICKET</h2>
+  <div class="tickets">
+    <div class="tk">
+      <div class="lbl">TICKET</div>
+      <div class="amt">&yen;3,500<sup>+1D</sup></div>
     </div>
-  </section>
-  <section class="section">
-    <h2>EVENT INFO</h2>
-    <dl class="info-grid">
-      <dt>公演名</dt><dd>RASEN</dd>
-      <dt>日程</dt><dd>2026年6月21日(日)</dd>
-      <dt>会場</dt><dd>渋谷LUSH (東京都)</dd>
-      <dt>開場</dt><dd>18:15</dd>
-      <dt>開演</dt><dd>18:45</dd>
-      <dt>終演</dt><dd>20:50</dd>
-      <dt>主催</dt><dd>Nape</dd>
-    </dl>
-  </section>
-  <section class="section">
-    <h2>TICKET</h2>
-    <div class="price-card">
-      <div class="price">
-        <div class="label">一般</div>
-        <div class="amount">¥3,500 <small>（税込）</small></div>
-      </div>
-      <div class="price">
-        <div class="label">学割</div>
-        <div class="amount">¥2,000 <small>（税込）</small></div>
-      </div>
+    <div class="tk">
+      <div class="lbl">STUDENT TICKET</div>
+      <div class="amt">&yen;2,000<sup>+1D</sup></div>
     </div>
-  </section>
-  <footer>
-    <a class="footer-cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">チケット購入はこちら</a>
-    <p>RASEN &copy; 2026 Nape. All Rights Reserved.</p>
-  </footer>
+  </div>
+  <p class="note">※ +1D : ドリンク代別途必要 / 価格は税込</p>
+</section>
+
+<footer>
+  <div class="foot-rasen">RASEN</div>
+  <a class="foot-cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">BUY TICKET</a>
+  <div class="foot-meta">
+    Nape presents TWO MAN LIVE<br>
+    ACT : Nape and 徒然書簡<br>
+    2026.06.21 (Sun) &nbsp;/&nbsp; Shibuya LUSH<br>
+    &copy; 2026 Nape. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var c = document.getElementById('helix');
+  var W = 340, H = 1000, turns = 5, perTurn = 26;
+  var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">';
+  var total = turns*perTurn;
+  for(var i=0;i<total;i++){
+    var t = i/perTurn * Math.PI*2;
+    var y = (i/total)*H;
+    var amp = 120;
+    var x1 = W/2 + Math.sin(t)*amp;
+    var x2 = W/2 + Math.sin(t+Math.PI)*amp;
+    var depth1 = (Math.cos(t)+1)/2;
+    var depth2 = (Math.cos(t+Math.PI)+1)/2;
+    var r1 = 1.4 + depth1*2.6;
+    var r2 = 1.4 + depth2*2.6;
+    var o1 = 0.25 + depth1*0.75;
+    var o2 = 0.25 + depth2*0.75;
+    var col1 = depth1>0.62 ? '#c8102e' : '#15151a';
+    var col2 = depth2>0.62 ? '#c8102e' : '#15151a';
+    var d = (i%9===0)?(0.3+Math.random()*1.2):0;
+    svg += '<circle class="dot" cx="'+x1.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r1.toFixed(1)+'" fill="'+col1+'" opacity="'+o1.toFixed(2)+'" style="animation-delay:'+d.toFixed(2)+'s"/>';
+    svg += '<circle class="dot" cx="'+x2.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r2.toFixed(1)+'" fill="'+col2+'" opacity="'+o2.toFixed(2)+'" style="animation-delay:'+(d+0.4).toFixed(2)+'s"/>';
+    // scatter particles around to mimic the dissolving spray
+    if(i%2===0){
+      for(var k=0;k<2;k++){
+        var sx = x1 + (Math.random()-0.5)*70;
+        var sy = y + (Math.random()-0.5)*30;
+        var sr = Math.random()*1.6;
+        svg += '<circle class="dot" cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+sr.toFixed(1)+'" fill="#15151a" opacity="'+(0.12+Math.random()*0.3).toFixed(2)+'"/>';
+      }
+    }
+  }
+  svg += '</svg>';
+  c.innerHTML = svg;
+})();
+</script>
 </body>
 </html>
