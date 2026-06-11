@@ -446,5 +446,23 @@
   draw();
 })();
 </script>
+<!-- GA4 custom event tracking -->
+<script>
+  (function(){
+    function track(name, params){ if(typeof gtag==="function"){ gtag("event", name, params||{}); } }
+    document.addEventListener("click", function(e){
+      var el = e.target.closest("a");
+      if(!el) return;
+      if(el.classList.contains("cta")){
+        track("ticket_click", {link_url: el.href});
+      } else if(el.classList.contains("mv-card")){
+        var t = el.querySelector(".mv-title");
+        track("mv_click", {mv_title: t ? t.textContent.trim() : "", link_url: el.href});
+      } else if(el.closest(".act-socials")){
+        track("social_click", {social_label: el.getAttribute("aria-label") || "", link_url: el.href});
+      }
+    }, true);
+  })();
+</script>
 </body>
 </html>
