@@ -28,10 +28,7 @@
   /* HERO */
   .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:6vh 5vw;
     background:radial-gradient(ellipse at 50% 0%, #f2f0ed 0%, var(--paper) 55%, var(--paper2) 100%);overflow:hidden;}
-  .helix{position:absolute;top:-8%;left:50%;transform:translateX(-50%);width:340px;height:116%;opacity:.9;pointer-events:none;z-index:1;}
-  .helix svg{width:100%;height:100%;}
-  .dot{animation:drift 7s ease-in-out infinite;}
-  @keyframes drift{0%,100%{transform:translateX(0);opacity:1;}50%{transform:translateX(6px);opacity:.55;}}
+  .helix{position:absolute;top:-6%;left:50%;transform:translateX(-50%);width:540px;max-width:96vw;height:118%;opacity:.95;pointer-events:none;z-index:1;}
   .hero-inner{position:relative;z-index:3;width:100%;max-width:920px;text-align:center;}
   .kicker{font-size:clamp(.95rem,2.6vw,1.5rem);font-weight:700;letter-spacing:.04em;margin-bottom:.4rem;}
   .kicker .pres{color:var(--ink);font-weight:600;}
@@ -117,7 +114,7 @@
 
   @media(max-width:640px){
     .tickets{grid-template-columns:1fr;}
-    .helix{width:220px;opacity:.7;}
+    .helix{width:340px;}
     .info-table th{width:96px;font-size:.8rem;}
     .act-block,.act-block.reverse{grid-template-columns:1fr;gap:1.4rem;}
     .act-block.reverse .act-photo{order:0;}
@@ -128,7 +125,7 @@
 <div class="grain"></div>
 
 <header class="hero">
-  <div class="helix" id="helix"></div>
+  <canvas class="helix" id="helix-canvas"></canvas>
   <div class="hero-inner">
     <p class="kicker"><span class="pres">Nape presents</span> &nbsp;<span class="two">TWO MAN LIVE</span></p>
     <h1 class="rasen-title">RASEN</h1>
@@ -236,38 +233,116 @@
 
 <script>
 (function(){
-  var c = document.getElementById('helix');
-  var W = 340, H = 1000, turns = 5, perTurn = 26;
-  var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">';
-  var total = turns*perTurn;
-  for(var i=0;i<total;i++){
-    var t = i/perTurn * Math.PI*2;
-    var y = (i/total)*H;
-    var amp = 120;
-    var x1 = W/2 + Math.sin(t)*amp;
-    var x2 = W/2 + Math.sin(t+Math.PI)*amp;
-    var depth1 = (Math.cos(t)+1)/2;
-    var depth2 = (Math.cos(t+Math.PI)+1)/2;
-    var r1 = 1.4 + depth1*2.6;
-    var r2 = 1.4 + depth2*2.6;
-    var o1 = 0.25 + depth1*0.75;
-    var o2 = 0.25 + depth2*0.75;
-    var col1 = depth1>0.62 ? '#c8102e' : '#15151a';
-    var col2 = depth2>0.62 ? '#c8102e' : '#15151a';
-    var d = (i%9===0)?(0.3+Math.random()*1.2):0;
-    svg += '<circle class="dot" cx="'+x1.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r1.toFixed(1)+'" fill="'+col1+'" opacity="'+o1.toFixed(2)+'" style="animation-delay:'+d.toFixed(2)+'s"/>';
-    svg += '<circle class="dot" cx="'+x2.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r2.toFixed(1)+'" fill="'+col2+'" opacity="'+o2.toFixed(2)+'" style="animation-delay:'+(d+0.4).toFixed(2)+'s"/>';
-    if(i%2===0){
-      for(var k=0;k<2;k++){
-        var sx = x1 + (Math.random()-0.5)*70;
-        var sy = y + (Math.random()-0.5)*30;
-        var sr = Math.random()*1.6;
-        svg += '<circle class="dot" cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+sr.toFixed(1)+'" fill="#15151a" opacity="'+(0.12+Math.random()*0.3).toFixed(2)+'"/>';
+  var canvas = document.getElementById("helix-canvas");
+  if(!canvas) return;
+  var ctx = canvas.getContext("2d");
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var W=0, H=0;
+  function resize(){
+    var r = canvas.getBoundingClientRect();
+    W = r.width; H = r.height;
+    canvas.width = Math.round(W*DPR); canvas.height = Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var px=0, py=0, tpx=0, tpy=0;
+  window.addEventListener("pointermove", function(e){
+    tpx = (e.clientX / window.innerWidth - 0.5);
+    tpy = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  var RED = "#c8102e", INK = "#15151a";
+  var TURNS = 3.4;
+  var SEGMENTS = 150;
+  var phase = 0;
+
+  var scatter = [];
+  for(var i=0;i<70;i++){
+    scatter.push({a:Math.random()*Math.PI*2, rad:60+Math.random()*180, y:Math.random(), sp:0.2+Math.random()*0.6, r:Math.random()*1.6+0.3, o:0.06+Math.random()*0.28});
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var cx = W/2 + tpx*38;
+    px += (tpx-px)*0.06; py += (tpy-py)*0.06;
+    var tilt = px*0.5;
+    var amp = Math.min(W*0.34, 150);
+
+    var pts = [];
+    var rungs = [];
+    var prevA=null, prevB=null;
+    for(var s=0;s<=SEGMENTS;s++){
+      var f = s/SEGMENTS;
+      var y = f*H;
+      var ang = f*Math.PI*2*TURNS + phase;
+      var depthA = (Math.cos(ang)+1)/2;
+      var depthB = (Math.cos(ang+Math.PI)+1)/2;
+      var xA = cx + Math.sin(ang)*amp + (depthA-0.5)*tilt*amp;
+      var xB = cx + Math.sin(ang+Math.PI)*amp + (depthB-0.5)*tilt*amp;
+      var A = {x:xA, y:y, d:depthA};
+      var B = {x:xB, y:y, d:depthB};
+      if(s%5===0){ rungs.push({a:A,b:B,d:(depthA+depthB)/2}); }
+      pts.push(A); pts.push(B);
+      A.prev=prevA; B.prev=prevB;
+      prevA=A; prevB=B;
+    }
+
+    rungs.sort(function(a,b){return a.d-b.d;});
+    for(var k=0;k<rungs.length;k++){
+      var ru=rungs[k];
+      ctx.beginPath();
+      ctx.moveTo(ru.a.x, ru.a.y);
+      ctx.lineTo(ru.b.x, ru.b.y);
+      ctx.lineWidth = 0.6 + ru.d*1.6;
+      ctx.strokeStyle = "rgba(21,21,26,"+(0.05+ru.d*0.18).toFixed(3)+")";
+      ctx.stroke();
+    }
+
+    var sorted = pts.slice().sort(function(a,b){return a.d-b.d;});
+    for(var n=0;n<sorted.length;n++){
+      var p = sorted[n];
+      var r = 1.2 + p.d*3.4;
+      var front = p.d>0.6;
+      var o = 0.22 + p.d*0.78;
+      if(p.prev){
+        ctx.beginPath();
+        ctx.moveTo(p.prev.x, p.prev.y);
+        ctx.lineTo(p.x, p.y);
+        ctx.lineWidth = 0.5 + p.d*1.8;
+        ctx.strokeStyle = front ? "rgba(200,16,46,"+(o*0.5).toFixed(3)+")" : "rgba(21,21,26,"+(o*0.4).toFixed(3)+")";
+        ctx.stroke();
+      }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, Math.PI*2);
+      ctx.fillStyle = front ? "rgba(200,16,46,"+o.toFixed(3)+")" : "rgba(21,21,26,"+o.toFixed(3)+")";
+      ctx.fill();
+      if(front && p.d>0.85){
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r*2.4, 0, Math.PI*2);
+        ctx.fillStyle = "rgba(200,16,46,0.06)";
+        ctx.fill();
       }
     }
+
+    for(var i2=0;i2<scatter.length;i2++){
+      var sc = scatter[i2];
+      if(!reduce){ sc.y -= sc.sp/H * 1.2; if(sc.y<0) sc.y=1; }
+      var sy = sc.y*H;
+      var sx = cx + Math.cos(sc.a+phase*0.3)*sc.rad;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sc.r, 0, Math.PI*2);
+      ctx.fillStyle = "rgba(21,21,26,"+sc.o.toFixed(3)+")";
+      ctx.fill();
+    }
+
+    if(!reduce) phase += 0.006;
+    requestAnimationFrame(draw);
   }
-  svg += '</svg>';
-  c.innerHTML = svg;
+  draw();
 })();
 </script>
 </body>
