@@ -66,6 +66,7 @@
   .sec-head{font-size:clamp(1.5rem,5vw,2.4rem);font-weight:900;letter-spacing:.12em;margin-bottom:2.6rem;display:flex;align-items:center;gap:1rem;}
   .sec-head::before{content:"";width:42px;height:3px;background:var(--red);}
   .sec-head .num{color:var(--red);font-size:.9rem;letter-spacing:.2em;}
+  .merch{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}.mc{border:1px solid var(--ink);padding:1.6rem 1.2rem;background:rgba(255,255,255,.3);display:flex;flex-direction:column;}.mc .name{font-weight:900;letter-spacing:.04em;font-size:1rem;line-height:1.35;}.mc .price{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:900;color:var(--red);line-height:1;margin-top:.7rem;}.mc .price sup{font-size:.42em;font-weight:700;color:var(--ink);vertical-align:super;margin-left:.2rem;}.mc .meta{font-size:.72rem;letter-spacing:.06em;color:var(--muted);font-weight:700;margin-top:.5rem;}.mc .tag{display:inline-block;align-self:flex-start;background:var(--red);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.12em;padding:.18em .6em;border-radius:2px;margin-bottom:.7rem;}.merch-gift{margin-top:1.4rem;border:1px dashed var(--red);padding:1.1rem 1.3rem;text-align:center;font-weight:800;letter-spacing:.04em;line-height:1.6;background:rgba(200,16,46,.04);}.merch-gift .big{color:var(--red);}
 
   /* ACT with real photos */
   .act-block{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.6rem;align-items:center;margin-bottom:4rem;}
@@ -150,6 +151,7 @@
 
   @media(max-width:640px){
     .tickets{grid-template-columns:1fr;}
+    .merch{grid-template-columns:1fr 1fr;}
     .mv-grid{grid-template-columns:1fr;}
     .helix{width:340px;}
     .info-table th{width:96px;font-size:.8rem;}
@@ -353,6 +355,21 @@
     </div>
   </div>
   <p class="note">※ チケット代のほかに、別途ドリンク代 &yen;600 を頂戴いたします。<br>※ 当日券は当日、会場受付にて販売いたします。<br>※ 表示価格はすべて税込です。<br>※ 学生チケットでご入場の場合は、学生であることを証明できるもの（学生証など）をご持参のうえ、当日受付窓口にてご提示ください。大学・大学院・専門学校等の学生の方もご利用いただけます。年齢制限はございません。</p>
+</section>
+
+<section class="section">
+  <h2 class="sec-head"><span class="num">05</span> MERCH</h2>
+  <div class="merch">
+    <div class="mc"><span class="tag">NEW</span><div class="name">Nape LOGO Tee</div><div class="price">3800<sup>yen</sup></div><div class="meta">M / L / XL</div></div>
+    <div class="mc"><span class="tag">NEW</span><div class="name">Nape LOGO Bag</div><div class="price">2200<sup>yen</sup></div><div class="meta">42cm × 37cm</div></div>
+    <div class="mc"><div class="name">Nape Towel</div><div class="price">3500<sup>yen</sup></div></div>
+    <div class="mc"><div class="name">Nape T SHIRT WHITE &amp; BLACK</div><div class="price">4500<sup>yen</sup></div><div class="meta">S / M / L</div></div>
+    <div class="mc"><div class="name">Nape Sticker 2ver.</div><div class="price">500<sup>yen</sup></div><div class="meta">per one</div></div>
+    <div class="mc"><div class="name">“A Tumor Bombastic” CD</div><div class="price">2000<sup>yen</sup></div></div>
+    <div class="mc"><div class="name">Nape Badge 4ver.</div><div class="price">500<sup>yen</sup></div><div class="meta">per one</div></div>
+    <div class="mc"><div class="name">Nape MAGAZINE</div><div class="price">1500<sup>yen</sup></div><div class="meta">Vol.1</div></div>
+  </div>
+  <p class="merch-gift"><span class="big">5,000円以上お買い上げの方に</span><br>Nape オリジナルショッパーをプレゼント！！</p>
 </section>
 
 <footer>
