@@ -68,7 +68,8 @@
   .act-photo .ph-label{position:absolute;left:1.2rem;bottom:1.1rem;z-index:2;color:var(--paper);}
   .act-photo .ph-label .ph-name{font-size:clamp(1.4rem,4vw,1.9rem);font-weight:900;letter-spacing:.04em;line-height:1;}
   .act-photo .ph-label .ph-tag{font-size:.6rem;letter-spacing:.3em;color:var(--red);font-weight:800;margin-top:.4rem;}
-  .act-photo .ph-label .ph-logo{display:block;width:clamp(160px,42%,240px);height:auto;filter:invert(1) drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 2px 8px rgba(0,0,0,.55));}
+  .act-photo .ph-label .ph-logo{display:block;width:clamp(160px,42%,240px);height:auto;filter:drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 2px 8px rgba(0,0,0,.55));}
+  .act-photo .ph-label .ph-logo[src="logo-tsurezure.png"]{filter:invert(1) drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 2px 8px rgba(0,0,0,.55));}
   .act-photo .ph-label:has(.ph-logo){left:0;bottom:0;}
   .act-photo .corner{position:absolute;top:.9rem;left:.9rem;z-index:2;width:14px;height:14px;border-top:2px solid var(--red);border-left:2px solid var(--red);}
   .act-text{display:flex;flex-direction:column;justify-content:center;}
@@ -178,7 +179,7 @@
     <div class="act-photo">
       <div class="corner"></div>
       <img src="act-nape.jpg" alt="Nape - WATARU & ISSEI">
-      <div class="ph-label"><div class="ph-name">Nape</div></div>
+      <div class="ph-label"><img class="ph-logo" src="logo-nape.png" alt="Nape"></div>
     </div>
     <div class="act-text">
       <div class="act-name">Nape</div>
