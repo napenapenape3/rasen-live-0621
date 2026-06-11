@@ -57,170 +57,73 @@
     0%,100%{transform:translateX(0);opacity:1;}
     50%{transform:translateX(6px);opacity:.55;}
   }
-  .hero-inner{
-    position:relative;
-    z-index:3;
-    width:100%;
-    max-width:920px;
-    text-align:center;
-  }
-  .kicker{
-    font-size:clamp(.95rem,2.6vw,1.5rem);
-    font-weight:700;
-    letter-spacing:.04em;
-    margin-bottom:.4rem;
-  }
+  .hero-inner{position:relative;z-index:3;width:100%;max-width:920px;text-align:center;}
+  .kicker{font-size:clamp(.95rem,2.6vw,1.5rem);font-weight:700;letter-spacing:.04em;margin-bottom:.4rem;}
   .kicker .pres{color:var(--ink);font-weight:600;}
   .kicker .two{color:var(--red);font-weight:800;letter-spacing:.06em;}
-  .rasen-title{
-    font-size:clamp(5.5rem,26vw,18rem);
-    font-weight:900;
-    color:var(--red);
-    letter-spacing:.04em;
-    line-height:.82;
-    text-shadow:0 2px 0 rgba(156,11,34,.25);
-  }
-  .meta-row{
-    margin-top:2.2rem;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:.4rem 1.4rem;
-    font-weight:700;
-    letter-spacing:.02em;
-    font-size:clamp(.95rem,2.4vw,1.25rem);
-  }
+  .rasen-title{font-size:clamp(5.5rem,26vw,18rem);font-weight:900;color:var(--red);letter-spacing:.04em;line-height:.82;text-shadow:0 2px 0 rgba(156,11,34,.25);}
+  .meta-row{margin-top:2.2rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;font-weight:700;letter-spacing:.02em;font-size:clamp(.95rem,2.4vw,1.25rem);}
   .meta-row .red{color:var(--red);}
-  .cta{
-    margin-top:2.4rem;
-    display:inline-block;
-    padding:1rem 3.2rem;
-    font-weight:800;
-    letter-spacing:.18em;
-    font-size:1rem;
-    color:var(--paper);
-    background:var(--red);
-    border:1px solid var(--red-deep);
-    transition:background .25s ease,transform .2s ease;
-  }
+  .cta{margin-top:2.4rem;display:inline-block;padding:1rem 3.2rem;font-weight:800;letter-spacing:.18em;font-size:1rem;color:var(--paper);background:var(--red);border:1px solid var(--red-deep);transition:background .25s ease,transform .2s ease;}
   .cta:hover{background:var(--ink);transform:translateY(-2px);}
-  .scroll-hint{
-    position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
-    z-index:3;font-size:.7rem;letter-spacing:.4em;color:var(--muted);
-    writing-mode:vertical-rl;
-  }
+  .scroll-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);z-index:3;font-size:.7rem;letter-spacing:.4em;color:var(--muted);writing-mode:vertical-rl;}
 
   /* ===== KEY VISUAL ===== */
-  .kv{
-    background:var(--ink);
-    padding:0;
-    display:flex;
-    justify-content:center;
-  }
-  .kv img{
-    width:100%;
-    max-width:720px;
-    object-fit:cover;
-  }
+  .kv{background:var(--ink);padding:0;display:flex;justify-content:center;}
+  .kv img{width:100%;max-width:720px;object-fit:cover;}
 
   /* ===== MARQUEE BAND ===== */
-  .band{
-    background:var(--ink);
-    color:var(--paper);
-    padding:.6rem 0;
-    overflow:hidden;
-    white-space:nowrap;
-  }
-  .marquee{
-    display:inline-block;
-    animation:scroll-x 22s linear infinite;
-    font-weight:800;letter-spacing:.3em;font-size:.95rem;
-  }
+  .band{background:var(--ink);color:var(--paper);padding:.6rem 0;overflow:hidden;white-space:nowrap;}
+  .marquee{display:inline-block;animation:scroll-x 22s linear infinite;font-weight:800;letter-spacing:.3em;font-size:.95rem;}
   .marquee span{margin:0 1.4rem;}
   .marquee .r{color:var(--red);}
   @keyframes scroll-x{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   .section{max-width:980px;margin:0 auto;padding:6rem 1.6rem;}
-  .sec-head{
-    font-size:clamp(1.5rem,5vw,2.4rem);
-    font-weight:900;
-    letter-spacing:.12em;
-    margin-bottom:2.6rem;
-    display:flex;align-items:center;gap:1rem;
-  }
+  .sec-head{font-size:clamp(1.5rem,5vw,2.4rem);font-weight:900;letter-spacing:.12em;margin-bottom:2.6rem;display:flex;align-items:center;gap:1rem;}
   .sec-head::before{content:"";width:42px;height:3px;background:var(--red);}
   .sec-head .num{color:var(--red);font-size:.9rem;letter-spacing:.2em;}
 
-  /* ===== ACT (expanded) ===== */
-  .act-block{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:2.4rem;
-    align-items:center;
-    margin-bottom:4rem;
+  /* ===== ACT (typographic panels) ===== */
+  .act-block{display:grid;grid-template-columns:.85fr 1.15fr;gap:2.4rem;align-items:stretch;margin-bottom:3rem;}
+  .act-block.reverse .act-panel{order:2;}
+  .act-panel{
+    position:relative;overflow:hidden;background:var(--ink);color:var(--paper);
+    min-height:300px;display:flex;align-items:flex-end;padding:1.6rem;
   }
-  .act-block.reverse .act-photo{order:2;}
-  .act-photo{
-    position:relative;
-    overflow:hidden;
-    background:var(--ink);
-    aspect-ratio:1/1;
+  .act-panel .big-letter{
+    position:absolute;top:-6%;right:-4%;
+    font-size:18rem;font-weight:900;line-height:.7;color:#1d1d22;
+    user-select:none;pointer-events:none;letter-spacing:-.04em;
   }
-  .act-photo img{
-    width:100%;height:100%;
-    object-fit:cover;
-    filter:grayscale(1) contrast(1.05);
-  }
-  .act-name{
-    font-size:clamp(2rem,7vw,3.4rem);
-    font-weight:900;
-    letter-spacing:.03em;
-    line-height:1;
-  }
-  .act-tag{
-    margin-top:.6rem;
-    font-size:.72rem;letter-spacing:.34em;color:var(--red);font-weight:800;
-  }
+  .act-panel .panel-helix{position:absolute;inset:0;opacity:.5;pointer-events:none;}
+  .act-panel .panel-helix svg{width:100%;height:100%;}
+  .act-panel .panel-name{position:relative;z-index:2;font-size:clamp(1.6rem,5vw,2.2rem);font-weight:900;letter-spacing:.04em;}
+  .act-panel .panel-name small{display:block;font-size:.62rem;letter-spacing:.34em;color:var(--red);font-weight:800;margin-top:.5rem;}
+  .act-text{display:flex;flex-direction:column;justify-content:center;}
+  .act-name{font-size:clamp(2rem,7vw,3.4rem);font-weight:900;letter-spacing:.03em;line-height:1;}
+  .act-tag{margin-top:.6rem;font-size:.72rem;letter-spacing:.34em;color:var(--red);font-weight:800;}
   .act-rule{width:70px;height:3px;background:var(--red);margin:1.4rem 0;}
   .act-desc{font-size:clamp(.95rem,2.2vw,1.05rem);color:var(--ink);font-weight:500;line-height:1.95;}
   .act-members{margin-top:1.2rem;font-size:.85rem;color:var(--muted);letter-spacing:.06em;}
 
   /* ===== INFO ===== */
   .info-table{width:100%;border-collapse:collapse;font-size:clamp(.95rem,2.4vw,1.1rem);}
-  .info-table th{
-    text-align:left;width:140px;padding:1rem .5rem;color:var(--red);
-    font-weight:800;letter-spacing:.1em;border-bottom:1px solid rgba(17,17,20,.15);
-    vertical-align:top;
-  }
+  .info-table th{text-align:left;width:140px;padding:1rem .5rem;color:var(--red);font-weight:800;letter-spacing:.1em;border-bottom:1px solid rgba(17,17,20,.15);vertical-align:top;}
   .info-table td{padding:1rem .5rem;border-bottom:1px solid rgba(17,17,20,.15);font-weight:600;}
 
   /* ===== TICKET ===== */
   .tickets{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-  .tk{
-    border:1px solid var(--ink);
-    padding:2rem 1.4rem;text-align:center;
-    background:rgba(255,255,255,.3);
-  }
+  .tk{border:1px solid var(--ink);padding:2rem 1.4rem;text-align:center;background:rgba(255,255,255,.3);}
   .tk .lbl{letter-spacing:.25em;font-size:.8rem;color:var(--muted);font-weight:700;}
   .tk .amt{font-size:clamp(2rem,8vw,3rem);font-weight:900;color:var(--red);margin-top:.5rem;line-height:1;}
   .tk .amt sup{font-size:.45em;font-weight:700;color:var(--ink);vertical-align:super;margin-left:.2rem;}
   .note{margin-top:1.2rem;font-size:.8rem;color:var(--muted);letter-spacing:.05em;text-align:center;}
 
   /* ===== FOOTER ===== */
-  footer{
-    background:var(--ink);color:var(--paper);
-    text-align:center;padding:4.5rem 1.6rem 3rem;
-    position:relative;overflow:hidden;
-  }
-  .foot-rasen{
-    font-size:clamp(3rem,14vw,8rem);font-weight:900;color:var(--red);
-    letter-spacing:.06em;line-height:1;opacity:.92;
-  }
-  .foot-cta{
-    display:inline-block;margin-top:2rem;padding:1rem 3rem;
-    border:1px solid var(--red);color:var(--paper);background:var(--red);
-    font-weight:800;letter-spacing:.18em;transition:background .25s ease;
-  }
+  footer{background:var(--ink);color:var(--paper);text-align:center;padding:4.5rem 1.6rem 3rem;position:relative;overflow:hidden;}
+  .foot-rasen{font-size:clamp(3rem,14vw,8rem);font-weight:900;color:var(--red);letter-spacing:.06em;line-height:1;opacity:.92;}
+  .foot-cta{display:inline-block;margin-top:2rem;padding:1rem 3rem;border:1px solid var(--red);color:var(--paper);background:var(--red);font-weight:800;letter-spacing:.18em;transition:background .25s ease;}
   .foot-cta:hover{background:transparent;}
   .foot-meta{margin-top:2.4rem;font-size:.75rem;letter-spacing:.2em;color:#9a9aa0;line-height:2;}
 
@@ -228,8 +131,10 @@
     .tickets{grid-template-columns:1fr;}
     .helix{width:220px;opacity:.7;}
     .info-table th{width:96px;font-size:.8rem;}
-    .act-block,.act-block.reverse{grid-template-columns:1fr;gap:1.4rem;}
-    .act-block.reverse .act-photo{order:0;}
+    .act-block,.act-block.reverse{grid-template-columns:1fr;gap:1.2rem;}
+    .act-block.reverse .act-panel{order:0;}
+    .act-panel{min-height:200px;}
+    .act-panel .big-letter{font-size:12rem;}
   }
 </style>
 </head>
@@ -267,7 +172,11 @@
   <h2 class="sec-head"><span class="num">01</span> ACT</h2>
 
   <div class="act-block">
-    <div class="act-photo"><img src="flyer-acts.jpg" alt="Nape" style="object-position:72% 30%;transform:scale(1.7);"></div>
+    <div class="act-panel">
+      <div class="big-letter">N</div>
+      <div class="panel-helix" data-helix="1"></div>
+      <div class="panel-name">Nape<small>A BAND FROM SHIBUYA TOKYO</small></div>
+    </div>
     <div class="act-text">
       <div class="act-name">Nape</div>
       <div class="act-tag">A BAND FROM SHIBUYA TOKYO</div>
@@ -278,7 +187,11 @@
   </div>
 
   <div class="act-block reverse">
-    <div class="act-photo"><img src="flyer-acts.jpg" alt="徒然書簡" style="object-position:18% 78%;transform:scale(2.1);"></div>
+    <div class="act-panel">
+      <div class="big-letter" style="font-size:9rem;top:8%;right:6%;">徒</div>
+      <div class="panel-helix" data-helix="2"></div>
+      <div class="panel-name">徒然書簡<small>FROM TOKYO</small></div>
+    </div>
     <div class="act-text">
       <div class="act-name">徒然書簡</div>
       <div class="act-tag">FROM TOKYO</div>
@@ -327,25 +240,22 @@
 </footer>
 
 <script>
-(function(){
-  var c = document.getElementById('helix');
-  var W = 340, H = 1000, turns = 5, perTurn = 26;
+function buildHelix(el, W, H, turns, perTurn, amp){
   var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">';
   var total = turns*perTurn;
   for(var i=0;i<total;i++){
     var t = i/perTurn * Math.PI*2;
     var y = (i/total)*H;
-    var amp = 120;
     var x1 = W/2 + Math.sin(t)*amp;
     var x2 = W/2 + Math.sin(t+Math.PI)*amp;
     var depth1 = (Math.cos(t)+1)/2;
     var depth2 = (Math.cos(t+Math.PI)+1)/2;
-    var r1 = 1.4 + depth1*2.6;
-    var r2 = 1.4 + depth2*2.6;
-    var o1 = 0.25 + depth1*0.75;
-    var o2 = 0.25 + depth2*0.75;
-    var col1 = depth1>0.62 ? '#c8102e' : '#15151a';
-    var col2 = depth2>0.62 ? '#c8102e' : '#15151a';
+    var r1 = 1.2 + depth1*2.4;
+    var r2 = 1.2 + depth2*2.4;
+    var o1 = 0.25 + depth1*0.7;
+    var o2 = 0.25 + depth2*0.7;
+    var col1 = depth1>0.62 ? '#c8102e' : (el.dataset.dark?'#3a3a42':'#15151a');
+    var col2 = depth2>0.62 ? '#c8102e' : (el.dataset.dark?'#3a3a42':'#15151a');
     var d = (i%9===0)?(0.3+Math.random()*1.2):0;
     svg += '<circle class="dot" cx="'+x1.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r1.toFixed(1)+'" fill="'+col1+'" opacity="'+o1.toFixed(2)+'" style="animation-delay:'+d.toFixed(2)+'s"/>';
     svg += '<circle class="dot" cx="'+x2.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r2.toFixed(1)+'" fill="'+col2+'" opacity="'+o2.toFixed(2)+'" style="animation-delay:'+(d+0.4).toFixed(2)+'s"/>';
@@ -353,318 +263,19 @@
       for(var k=0;k<2;k++){
         var sx = x1 + (Math.random()-0.5)*70;
         var sy = y + (Math.random()-0.5)*30;
-        var sr = Math.random()*1.6;
-        svg += '<circle class="dot" cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+sr.toFixed(1)+'" fill="#15151a" opacity="'+(0.12+Math.random()*0.3).toFixed(2)+'"/>';
+        var sr = Math.random()*1.5;
+        svg += '<circle class="dot" cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+sr.toFixed(1)+'" fill="'+(el.dataset.dark?'#3a3a42':'#15151a')+'" opacity="'+(0.12+Math.random()*0.3).toFixed(2)+'"/>';
       }
     }
   }
   svg += '</svg>';
-  c.innerHTML = svg;
-})();
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RASEN | Nape presents TWO MAN LIVE | 2026.06.21 Shibuya LUSH</title>
-<meta name="description" content="Nape presents TWO MAN LIVE「RASEN」2026年6月21日(日) Shibuya LUSH。ACT: Nape and 徒然書簡。">
-<style>
-  :root{
-    --paper:#e9e7e4;
-    --paper2:#dcd9d5;
-    --ink:#111114;
-    --red:#c8102e;
-    --red-deep:#9c0b22;
-    --muted:#55555a;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:'Arial','Helvetica Neue','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;
-    background:var(--paper);
-    color:var(--ink);
-    line-height:1.7;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none;}
-  .grain{
-    position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.05;mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ===== HERO ===== */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:6vh 5vw;
-    background:
-      radial-gradient(ellipse at 50% 0%, #f2f0ed 0%, var(--paper) 55%, var(--paper2) 100%);
-    overflow:hidden;
-  }
-  /* DNA / 螺旋 particle column */
-  .helix{
-    position:absolute;
-    top:-8%;left:50%;transform:translateX(-50%);
-    width:340px;height:116%;
-    opacity:.9;
-    pointer-events:none;
-    z-index:1;
-  }
-  .helix svg{width:100%;height:100%;}
-  .dot{animation:drift 7s ease-in-out infinite;}
-  @keyframes drift{
-    0%,100%{transform:translateX(0);opacity:1;}
-    50%{transform:translateX(6px);opacity:.55;}
-  }
-  .hero-inner{
-    position:relative;
-    z-index:3;
-    width:100%;
-    max-width:920px;
-    text-align:center;
-  }
-  .kicker{
-    font-size:clamp(.95rem,2.6vw,1.5rem);
-    font-weight:700;
-    letter-spacing:.04em;
-    margin-bottom:.4rem;
-  }
-  .kicker .pres{color:var(--ink);font-weight:600;}
-  .kicker .two{color:var(--red);font-weight:800;letter-spacing:.06em;}
-  .rasen-title{
-    font-size:clamp(5.5rem,26vw,18rem);
-    font-weight:900;
-    color:var(--red);
-    letter-spacing:.04em;
-    line-height:.82;
-    text-shadow:0 2px 0 rgba(156,11,34,.25);
-  }
-  .meta-row{
-    margin-top:2.2rem;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:.4rem 1.4rem;
-    font-weight:700;
-    letter-spacing:.02em;
-    font-size:clamp(.95rem,2.4vw,1.25rem);
-  }
-  .meta-row .red{color:var(--red);}
-  .cta{
-    margin-top:2.4rem;
-    display:inline-block;
-    padding:1rem 3.2rem;
-    font-weight:800;
-    letter-spacing:.18em;
-    font-size:1rem;
-    color:var(--paper);
-    background:var(--red);
-    border:1px solid var(--red-deep);
-    transition:background .25s ease,transform .2s ease;
-  }
-  .cta:hover{background:var(--ink);transform:translateY(-2px);}
-  .scroll-hint{
-    position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
-    z-index:3;font-size:.7rem;letter-spacing:.4em;color:var(--muted);
-    writing-mode:vertical-rl;
-  }
-
-  /* ===== SECTIONS ===== */
-  .band{
-    background:var(--ink);
-    color:var(--paper);
-    padding:.6rem 0;
-    overflow:hidden;
-    white-space:nowrap;
-  }
-  .marquee{
-    display:inline-block;
-    animation:scroll-x 22s linear infinite;
-    font-weight:800;letter-spacing:.3em;font-size:.95rem;
-  }
-  .marquee span{margin:0 1.4rem;}
-  .marquee .r{color:var(--red);}
-  @keyframes scroll-x{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-  .section{max-width:880px;margin:0 auto;padding:6rem 1.6rem;}
-  .sec-head{
-    font-size:clamp(1.5rem,5vw,2.4rem);
-    font-weight:900;
-    letter-spacing:.12em;
-    margin-bottom:2.4rem;
-    display:flex;align-items:center;gap:1rem;
-  }
-  .sec-head::before{content:"";width:42px;height:3px;background:var(--red);}
-  .sec-head .num{color:var(--red);font-size:.9rem;letter-spacing:.2em;}
-
-  .acts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-  .act{
-    border:1px solid rgba(17,17,20,.18);
-    background:rgba(255,255,255,.35);
-    padding:2.4rem 1.4rem;
-    text-align:center;
-  }
-  .act .name{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:900;letter-spacing:.04em;}
-  .act .role{margin-top:.5rem;color:var(--muted);font-size:.8rem;letter-spacing:.3em;}
-
-  .info-table{width:100%;border-collapse:collapse;font-size:clamp(.95rem,2.4vw,1.1rem);}
-  .info-table th{
-    text-align:left;width:140px;padding:1rem .5rem;color:var(--red);
-    font-weight:800;letter-spacing:.1em;border-bottom:1px solid rgba(17,17,20,.15);
-    vertical-align:top;
-  }
-  .info-table td{padding:1rem .5rem;border-bottom:1px solid rgba(17,17,20,.15);font-weight:600;}
-
-  .tickets{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-  .tk{
-    border:1px solid var(--ink);
-    padding:2rem 1.4rem;text-align:center;
-    background:rgba(255,255,255,.3);
-  }
-  .tk .lbl{letter-spacing:.25em;font-size:.8rem;color:var(--muted);font-weight:700;}
-  .tk .amt{font-size:clamp(2rem,8vw,3rem);font-weight:900;color:var(--red);margin-top:.5rem;line-height:1;}
-  .tk .amt sup{font-size:.45em;font-weight:700;color:var(--ink);vertical-align:super;margin-left:.2rem;}
-  .note{margin-top:1.2rem;font-size:.8rem;color:var(--muted);letter-spacing:.05em;text-align:center;}
-
-  /* ===== FOOTER ===== */
-  footer{
-    background:var(--ink);color:var(--paper);
-    text-align:center;padding:4.5rem 1.6rem 3rem;
-    position:relative;overflow:hidden;
-  }
-  .foot-rasen{
-    font-size:clamp(3rem,14vw,8rem);font-weight:900;color:var(--red);
-    letter-spacing:.06em;line-height:1;opacity:.92;
-  }
-  .foot-cta{
-    display:inline-block;margin-top:2rem;padding:1rem 3rem;
-    border:1px solid var(--red);color:var(--paper);background:var(--red);
-    font-weight:800;letter-spacing:.18em;transition:background .25s ease;
-  }
-  .foot-cta:hover{background:transparent;}
-  .foot-meta{margin-top:2.4rem;font-size:.75rem;letter-spacing:.2em;color:#9a9aa0;line-height:2;}
-
-  @media(max-width:600px){
-    .acts,.tickets{grid-template-columns:1fr;}
-    .helix{width:220px;opacity:.7;}
-    .info-table th{width:96px;font-size:.8rem;}
-  }
-</style>
-</head>
-<body>
-<div class="grain"></div>
-
-<header class="hero">
-  <div class="helix" id="helix"></div>
-  <div class="hero-inner">
-    <p class="kicker"><span class="pres">Nape presents</span> &nbsp;<span class="two">TWO MAN LIVE</span></p>
-    <h1 class="rasen-title">RASEN</h1>
-    <div class="meta-row">
-      <span class="red">2026 06 21 (Sun)</span>
-      <span>Shibuya LUSH</span>
-      <span>OPEN <span class="red">18:15</span></span>
-      <span>START <span class="red">18:45</span></span>
-    </div>
-    <a class="cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">TICKET</a>
-  </div>
-  <div class="scroll-hint">SCROLL</div>
-</header>
-
-<div class="band">
-  <div class="marquee">
-    <span>RASEN <span class="r">/</span> TWO MAN LIVE <span class="r">/</span> Nape and 徒然書簡 <span class="r">/</span> 2026.06.21 <span class="r">/</span> Shibuya LUSH <span class="r">/</span></span>
-    <span>RASEN <span class="r">/</span> TWO MAN LIVE <span class="r">/</span> Nape and 徒然書簡 <span class="r">/</span> 2026.06.21 <span class="r">/</span> Shibuya LUSH <span class="r">/</span></span>
-  </div>
-</div>
-
-<section class="section">
-  <h2 class="sec-head"><span class="num">01</span> ACT</h2>
-  <div class="acts">
-    <div class="act"><div class="name">Nape</div><div class="role">PERFORMER</div></div>
-    <div class="act"><div class="name">徒然書簡</div><div class="role">PERFORMER</div></div>
-  </div>
-</section>
-
-<section class="section">
-  <h2 class="sec-head"><span class="num">02</span> INFORMATION</h2>
-  <table class="info-table">
-    <tr><th>TITLE</th><td>Nape presents TWO MAN LIVE「RASEN」</td></tr>
-    <tr><th>DATE</th><td>2026.06.21 (Sun)</td></tr>
-    <tr><th>VENUE</th><td>Shibuya LUSH (東京都)</td></tr>
-    <tr><th>OPEN</th><td>18:15</td></tr>
-    <tr><th>START</th><td>18:45</td></tr>
-    <tr><th>ACT</th><td>Nape and 徒然書簡</td></tr>
-  </table>
-</section>
-
-<section class="section">
-  <h2 class="sec-head"><span class="num">03</span> TICKET</h2>
-  <div class="tickets">
-    <div class="tk">
-      <div class="lbl">TICKET</div>
-      <div class="amt">&yen;3,500<sup>+1D</sup></div>
-    </div>
-    <div class="tk">
-      <div class="lbl">STUDENT TICKET</div>
-      <div class="amt">&yen;2,000<sup>+1D</sup></div>
-    </div>
-  </div>
-  <p class="note">※ +1D : ドリンク代別途必要 / 価格は税込</p>
-</section>
-
-<footer>
-  <div class="foot-rasen">RASEN</div>
-  <a class="foot-cta" href="https://livepocket.jp/e/nape_rasen" target="_blank" rel="noopener">BUY TICKET</a>
-  <div class="foot-meta">
-    Nape presents TWO MAN LIVE<br>
-    ACT : Nape and 徒然書簡<br>
-    2026.06.21 (Sun) &nbsp;/&nbsp; Shibuya LUSH<br>
-    &copy; 2026 Nape. All Rights Reserved.
-  </div>
-</footer>
-
-<script>
-(function(){
-  var c = document.getElementById('helix');
-  var W = 340, H = 1000, turns = 5, perTurn = 26;
-  var svg = '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">';
-  var total = turns*perTurn;
-  for(var i=0;i<total;i++){
-    var t = i/perTurn * Math.PI*2;
-    var y = (i/total)*H;
-    var amp = 120;
-    var x1 = W/2 + Math.sin(t)*amp;
-    var x2 = W/2 + Math.sin(t+Math.PI)*amp;
-    var depth1 = (Math.cos(t)+1)/2;
-    var depth2 = (Math.cos(t+Math.PI)+1)/2;
-    var r1 = 1.4 + depth1*2.6;
-    var r2 = 1.4 + depth2*2.6;
-    var o1 = 0.25 + depth1*0.75;
-    var o2 = 0.25 + depth2*0.75;
-    var col1 = depth1>0.62 ? '#c8102e' : '#15151a';
-    var col2 = depth2>0.62 ? '#c8102e' : '#15151a';
-    var d = (i%9===0)?(0.3+Math.random()*1.2):0;
-    svg += '<circle class="dot" cx="'+x1.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r1.toFixed(1)+'" fill="'+col1+'" opacity="'+o1.toFixed(2)+'" style="animation-delay:'+d.toFixed(2)+'s"/>';
-    svg += '<circle class="dot" cx="'+x2.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r2.toFixed(1)+'" fill="'+col2+'" opacity="'+o2.toFixed(2)+'" style="animation-delay:'+(d+0.4).toFixed(2)+'s"/>';
-    // scatter particles around to mimic the dissolving spray
-    if(i%2===0){
-      for(var k=0;k<2;k++){
-        var sx = x1 + (Math.random()-0.5)*70;
-        var sy = y + (Math.random()-0.5)*30;
-        var sr = Math.random()*1.6;
-        svg += '<circle class="dot" cx="'+sx.toFixed(1)+'" cy="'+sy.toFixed(1)+'" r="'+sr.toFixed(1)+'" fill="#15151a" opacity="'+(0.12+Math.random()*0.3).toFixed(2)+'"/>';
-      }
-    }
-  }
-  svg += '</svg>';
-  c.innerHTML = svg;
-})();
+  el.innerHTML = svg;
+}
+buildHelix(document.getElementById('helix'), 340, 1000, 5, 26, 120);
+document.querySelectorAll('.panel-helix').forEach(function(p){
+  p.dataset.dark = "1";
+  buildHelix(p, 300, 360, 2, 22, 90);
+});
 </script>
 </body>
 </html>
