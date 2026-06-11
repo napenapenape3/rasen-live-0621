@@ -169,20 +169,25 @@
     @keyframes rasenFlash{0%{opacity:0}40%{opacity:.85}100%{opacity:0}}
     #rasen-flash{position:fixed;inset:0;background:radial-gradient(circle at 50% 50%,rgba(200,16,46,.9),rgba(233,231,228,.2) 70%);z-index:9998;pointer-events:none;opacity:0;}
     #rasen-flash.go{animation:rasenFlash .7s ease forwards;}
-    #rasen-game-overlay{position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.94);display:none;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;color:#e9e7e4;}
-    #rasen-game-overlay.open{display:flex;}
-    #rasen-game-canvas{background:#e9e7e4;border:2px solid #c8102e;border-radius:6px;max-width:92vw;max-height:70vh;touch-action:none;}
-    #rasen-hud{display:flex;gap:24px;margin-bottom:10px;font-size:14px;letter-spacing:.08em;}
-    #rasen-hud .red{color:#c8102e;font-weight:700;}
-    #rasen-game-msg{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(15,14,13,.96);}
-    #rasen-game-msg.show{display:flex;}
-    #rasen-game-msg h2{font-size:clamp(20px,5vw,34px);margin:0 0 14px;letter-spacing:.04em;}
-    #rasen-game-msg .reveal{color:#c8102e;font-weight:700;font-size:clamp(16px,4vw,24px);margin:8px 0 4px;letter-spacing:.06em;}
-    #rasen-game-msg .sub{opacity:.7;font-size:13px;letter-spacing:.1em;margin-top:6px;}
-    .rasen-btn{margin-top:22px;background:#c8102e;color:#fff;border:none;padding:11px 26px;border-radius:4px;font-size:14px;letter-spacing:.1em;cursor:pointer;font-family:inherit;}
+    #rasen-quiz-overlay{position:fixed;inset:0;z-index:9999;background:rgba(15,14,13,.95);display:none;align-items:center;justify-content:center;font-family:inherit;color:#e9e7e4;padding:20px;}
+    #rasen-quiz-overlay.open{display:flex;}
+    #rasen-quiz-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#e9e7e4;font-size:28px;cursor:pointer;line-height:1;opacity:.7;}
+    #rasen-quiz-close:hover{opacity:1;}
+    .rasen-quiz-card{width:100%;max-width:440px;text-align:center;animation:rqFade .4s ease;}
+    @keyframes rqFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .rasen-quiz-step{font-size:12px;letter-spacing:.2em;color:#c8102e;font-weight:700;margin-bottom:18px;}
+    .rasen-quiz-q{font-size:clamp(18px,4.6vw,24px);line-height:1.6;margin:0 0 28px;letter-spacing:.02em;}
+    .rasen-quiz-opts{display:flex;flex-direction:column;gap:14px;}
+    .rasen-opt{background:transparent;border:1.5px solid rgba(233,231,228,.55);color:#e9e7e4;padding:16px 18px;border-radius:6px;font-size:16px;letter-spacing:.06em;cursor:pointer;font-family:inherit;transition:all .15s ease;}
+    .rasen-opt:hover{border-color:#c8102e;background:rgba(200,16,46,.12);}
+    .rasen-opt.correct{border-color:#c8102e;background:#c8102e;color:#fff;}
+    .rasen-opt.wrong{border-color:rgba(233,231,228,.3);opacity:.45;}
+    .rasen-quiz-note{font-size:13px;opacity:.75;margin-top:18px;line-height:1.6;min-height:18px;}
+    .rasen-quiz-msg h2{font-size:clamp(20px,5vw,30px);margin:0 0 18px;letter-spacing:.04em;}
+    .rasen-quiz-msg .reveal{color:#c8102e;font-weight:700;font-size:clamp(22px,6vw,34px);letter-spacing:.08em;margin:10px 0;}
+    .rasen-quiz-msg .sub{opacity:.7;font-size:13px;letter-spacing:.14em;margin-top:10px;}
+    .rasen-btn{margin-top:24px;background:#c8102e;color:#fff;border:none;padding:12px 28px;border-radius:4px;font-size:14px;letter-spacing:.1em;cursor:pointer;font-family:inherit;}
     .rasen-btn.ghost{background:transparent;border:1px solid rgba(233,231,228,.5);color:#e9e7e4;margin-left:10px;}
-    #rasen-game-close{position:absolute;top:16px;right:20px;background:none;border:none;color:#e9e7e4;font-size:26px;cursor:pointer;line-height:1;opacity:.7;}
-    #rasen-game-help{font-size:12px;opacity:.6;margin-top:12px;letter-spacing:.08em;}
   </style>
 </head>
 <body>
@@ -501,10 +506,7 @@
     function clearBoost(){ for(var i=1;i<=6;i++) logo.classList.remove("rb"+i); }
     function resetTaps(){ taps=0; clearBoost(); }
     logo.addEventListener("click",function(){
-      taps++;
-      clearTimeout(resetTimer);
-      resetTimer=setTimeout(resetTaps,1500);
-      clearBoost();
+      taps++; clearTimeout(resetTimer); resetTimer=setTimeout(resetTaps,1500); clearBoost();
       logo.classList.remove("rshake"); void logo.offsetWidth; logo.classList.add("rshake");
       if(taps>=1&&taps<=6) logo.classList.add("rb"+taps);
       if(taps>=7){ clearTimeout(resetTimer); resetTaps(); startSecret(); }
@@ -513,53 +515,50 @@
       var flash=document.getElementById("rasen-flash");
       flash.classList.remove("go"); void flash.offsetWidth; flash.classList.add("go");
       ga("secret_unlocked",{source:"logo_tap"});
-      setTimeout(openGame,450);
+      setTimeout(openQuiz,450);
     }
-    // ---- build game DOM ----
-    var ov=document.createElement("div"); ov.id="rasen-game-overlay";
-    ov.innerHTML='<button id="rasen-game-close" aria-label="close">&times;</button>'+
-      '<div id="rasen-hud"><span>SCORE <span class="red" id="rasen-score">0</span></span><span>MISS <span class="red" id="rasen-miss">0</span>/5</span><span>TIME <span class="red" id="rasen-time">30</span></span></div>'+
-      '<canvas id="rasen-game-canvas" width="360" height="480"></canvas>'+
-      '<div id="rasen-game-help">← → キー / 画面をタップ・ドラッグで移動 ・ 赤いかけらをキャッチ！白は避けて。'+
-      '<div id="rasen-game-msg"></div>';
+    // ---- quiz data ----
+    var QUIZ=[
+      {q:"バンド名「Nape」の意味は？", a:["うなじ","つむလじ"], correct:0, note:"日本の音楽シーンの「急所」を狙う、という由来。"},
+      {q:"Vo. WATARU が以前やっていたアルバイトは？", a:["駅員","居酒屋店員"], correct:0, note:""},
+      {q:"Gt. ISSEI が下北沢でよく食べているものは？", a:["ケバブ","ラーメン"], correct:0, note:""}
+    ];
+    var ov=document.createElement("div"); ov.id="rasen-quiz-overlay";
+    ov.innerHTML='<button id="rasen-quiz-close" aria-label="close">&times;</button><div class="rasen-quiz-card" id="rasen-quiz-card"></div>';
     document.body.appendChild(ov);
     var flashEl=document.createElement("div"); flashEl.id="rasen-flash"; document.body.appendChild(flashEl);
-    var cv=ov.querySelector("#rasen-game-canvas"), ctx=cv.getContext("2d");
-    var W=cv.width,H=cv.height;
-    var paddle,pieces,score,miss,timeLeft,running,raf,spawnT,lastTs,timerId;
-    var scoreEl=ov.querySelector("#rasen-score"),missEl=ov.querySelector("#rasen-miss"),timeEl=ov.querySelector("#rasen-time"),msgEl=ov.querySelector("#rasen-game-msg");
-    function reset(){ paddle={x:W/2-34,w:68,h:12}; pieces=[]; score=0; miss=0; timeLeft=30; spawnT=0; lastTs=0; scoreEl.textContent=0; missEl.textContent=0; timeEl.textContent=30; msgEl.classList.remove("show"); }
-    function spawn(){ var crimson=Math.random()<0.7; pieces.push({x:20+Math.random()*(W-40),y:-14,r:9,vy:1.6+Math.random()*2.2,crimson:crimson,rot:0}); }
-    function drawPiece(p){ ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.strokeStyle=p.crimson?"#c8102e":"#b7b3ad"; ctx.lineWidth=2.4; ctx.beginPath(); for(var t=-1;t<=1;t+=0.08){ var xx=Math.sin(t*Math.PI*2)*p.r; var yy=t*p.r*1.4; if(t===-1)ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);} ctx.stroke(); ctx.restore(); }
-    function step(ts){ if(!running) return; if(!lastTs)lastTs=ts; var dt=(ts-lastTs)/16.7; lastTs=ts; ctx.clearRect(0,0,W,H);
-      spawnT+=dt; if(spawnT>26){ spawn(); spawnT=0; }
-      for(var i=pieces.length-1;i>=0;i--){ var p=pieces[i]; p.y+=p.vy*dt; p.rot+=0.05*dt;
-        if(p.y>H-p.h-18 && p.y<H-6 && p.x>paddle.x-10 && p.x<paddle.x+paddle.w+10){
-          if(p.crimson){ score++; scoreEl.textContent=score; } else { miss++; missEl.textContent=miss; }
-          pieces.splice(i,1); if(miss>=5){ endGame(false); return; } continue; }
-        if(p.y>H+20){ pieces.splice(i,1); continue; } drawPiece(p); }
-      ctx.fillStyle="#c8102e"; ctx.fillRect(paddle.x,H-paddle.h-6,paddle.w,paddle.h);
-      raf=requestAnimationFrame(step); }
-    function tick(){ if(!running)return; timeLeft--; timeEl.textContent=timeLeft; if(timeLeft<=0){ endGame(true);} }
-    function openGame(){ ov.classList.add("open"); reset(); running=true; lastTs=0; ga("secret_game_start",{}); raf=requestAnimationFrame(step); timerId=setInterval(tick,1000); }
-    function endGame(cleared){ running=false; cancelAnimationFrame(raf); clearInterval(timerId);
-      ga("secret_game_end",{score:score,cleared:cleared?1:0});
-      var reached=score>=10;
-      var html='<h2>'+(reached?"螺旋をつかんだ。":"GAME OVER")+'</h2>';
-      html+='<div>SCORE '+score+'</div>';
-      if(reached){ html+='<div class="reveal">その手を、まだ離さないで。</div>'; html+='<div class="reveal">—— 9.12 (Sat) BASEMENT BAR</div>'; html+='<div class="sub">螺旋は、まだ続く。</div>'; ga("secret_message_revealed",{}); }
-      else { html+='<div class="sub">赤いかけらを 10 個キャッチすると何かが起きる…？</div>'; }
-      html+='<div><button class="rasen-btn" id="rasen-retry">もう一度</button><button class="rasen-btn ghost" id="rasen-quit">閉じる</button></div>';
-      msgEl.innerHTML=html; msgEl.classList.add("show");
-      msgEl.querySelector("#rasen-retry").onclick=function(){ openGame(); };
-      msgEl.querySelector("#rasen-quit").onclick=closeGame; }
-    function closeGame(){ running=false; cancelAnimationFrame(raf); clearInterval(timerId); ov.classList.remove("open"); }
-    ov.querySelector("#rasen-game-close").onclick=closeGame;
-    document.addEventListener("keydown",function(e){ if(!running)return; if(e.key==="ArrowLeft"){ paddle.x=Math.max(0,paddle.x-26);} else if(e.key==="ArrowRight"){ paddle.x=Math.min(W-paddle.w,paddle.x+26);} else if(e.key==="Escape"){ closeGame(); } });
-    function moveTo(clientX){ var r=cv.getBoundingClientRect(); var scale=W/r.width; var x=(clientX-r.left)*scale; paddle.x=Math.max(0,Math.min(W-paddle.w,x-paddle.w/2)); }
-    cv.addEventListener("pointermove",function(e){ if(running&&e.pressure>0||e.buttons>0||e.pointerType==="touch") moveTo(e.clientX); });
-    cv.addEventListener("pointerdown",function(e){ if(running) moveTo(e.clientX); });
-    cv.addEventListener("touchmove",function(e){ if(running&&e.touches[0]){ moveTo(e.touches[0].clientX); e.preventDefault(); } },{passive:false});
+    var card=ov.querySelector("#rasen-quiz-card");
+    var idx=0, locked=false;
+    function openQuiz(){ idx=0; ov.classList.add("open"); ga("secret_quiz_start",{}); renderQ(); }
+    function closeQuiz(){ ov.classList.remove("open"); }
+    function renderQ(){
+      locked=false; var item=QUIZ[idx];
+      var h='<div class="rasen-quiz-step">QUESTION '+(idx+1)+' / '+QUIZ.length+'</div>';
+      h+='<p class="rasen-quiz-q">'+item.q+'</p><div class="rasen-quiz-opts">';
+      for(var i=0;i<item.a.length;i++){ h+='<button class="rasen-opt" data-i="'+i+'">'+item.a[i]+'</button>'; }
+      h+='</div><div class="rasen-quiz-note" id="rasen-note"></div>';
+      card.innerHTML=h;
+      var btns=card.querySelectorAll(".rasen-opt");
+      btns.forEach(function(b){ b.onclick=function(){ choose(parseInt(b.getAttribute("data-i"),10),btns,item); }; });
+    }
+    function choose(i,btns,item){
+      if(locked) return; locked=true;
+      var ok=(i===item.correct);
+      btns.forEach(function(b){ var bi=parseInt(b.getAttribute("data-i"),10); if(bi===item.correct) b.classList.add("correct"); else b.classList.add("wrong"); });
+      var note=card.querySelector("#rasen-note");
+      if(ok){ if(item.note) note.textContent=item.note;
+        setTimeout(function(){ idx++; if(idx>=QUIZ.length) showReveal(); else renderQ(); }, item.note?1400:850);
+      } else { note.textContent="残念… もう一度最初から！"; ga("secret_quiz_fail",{question:idx+1});
+        setTimeout(function(){ idx=0; renderQ(); }, 1300); }
+    }
+    function showReveal(){
+      ga("secret_quiz_clear",{}); ga("secret_message_revealed",{});
+      card.innerHTML='<div class="rasen-quiz-msg"><h2>全問正解！</h2><div class="reveal">9.12 (土)</div><div class="reveal">乞うご期待。</div><div class="sub">螺旋は、まだ続く。</div><div><button class="rasen-btn" id="rasen-again">もう一度</button><button class="rasen-btn ghost" id="rasen-done">閉じる</button></div></div>';
+      card.querySelector("#rasen-again").onclick=function(){ idx=0; renderQ(); };
+      card.querySelector("#rasen-done").onclick=closeQuiz;
+    }
+    ov.querySelector("#rasen-quiz-close").onclick=closeQuiz;
+    document.addEventListener("keydown",function(e){ if(ov.classList.contains("open")&&e.key==="Escape") closeQuiz(); });
   })();
   </script>
 </body>
