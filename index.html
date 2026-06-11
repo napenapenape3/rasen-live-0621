@@ -509,7 +509,7 @@
       taps++; clearTimeout(resetTimer); resetTimer=setTimeout(resetTaps,1500); clearBoost();
       logo.classList.remove("rshake"); void logo.offsetWidth; logo.classList.add("rshake");
       if(taps>=1&&taps<=6) logo.classList.add("rb"+taps);
-      if(taps>=7){ clearTimeout(resetTimer); resetTaps(); startSecret(); }
+      if(taps>=3){ clearTimeout(resetTimer); resetTaps(); startSecret(); }
     });
     function startSecret(){
       var flash=document.getElementById("rasen-flash");
@@ -547,7 +547,7 @@
       btns.forEach(function(b){ var bi=parseInt(b.getAttribute("data-i"),10); if(bi===item.correct) b.classList.add("correct"); else b.classList.add("wrong"); });
       var note=card.querySelector("#rasen-note");
       if(ok){ if(item.note) note.textContent=item.note;
-        setTimeout(function(){ idx++; if(idx>=QUIZ.length) showReveal(); else renderQ(); }, item.note?1400:850);
+        setTimeout(function(){ idx++; if(idx>=QUIZ.length) showReveal(); else renderQ(); }, item.note?3500:850);
       } else { note.textContent="残念… もう一度最初から！"; ga("secret_quiz_fail",{question:idx+1});
         setTimeout(function(){ idx=0; renderQ(); }, 1300); }
     }
